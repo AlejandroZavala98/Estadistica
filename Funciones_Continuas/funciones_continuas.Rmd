@@ -1,0 +1,111 @@
+---
+title: "Funciones de probabilidad continuas"
+output: pdf_document
+author: "Joel Alejandro Zavala Prieto"
+toc: true
+font-size: 25px;
+---
+
+\newpage
+
+# Informacion de contacto
+
+mail: alejandro.zavala1001@gmail.com
+
+Facebook: www.facebook.com/AlejandroZavala
+
+\newpage
+
+# Funcion uniforme
+
+La función de densidad uniforme esta definida como: 
+
+\begin{equation}
+f(x) = \left\{
+         \begin{array}{ll}
+     f(x)=\frac{1}{b-a}      & \mathrm{si\ } a\leq x \leq b \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{equation}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=\frac{a+b}{2} \\
+V[x]&=\frac{(b-a)^2}{12}
+\end{split}
+\end{equation*}
+
+Para la función uniforme en el intervalo (0,1)
+
+\begin{equation}
+f(x) = \left\{
+         \begin{array}{ll}
+     1     & \mathrm{si\ } 0 \leq x \leq 1 \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{equation}
+
+Donde su valor esperado y su varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=\frac{1}{2} \\
+V[x]&=\frac{1}{12}
+\end{split}
+\end{equation*}
+
+Se cumple que para la función uniforme en el intervalo (0,1)
+\begin {equation*}
+\int_{- \infty}^{\infty} f(x) \cdot dx = \int_{0}^{1} 1 \cdot dx = 1
+\end{equation*}
+
+```{r, echo=TRUE}
+f <- function(x){x/x}
+integrate (f, lower = 0, upper = 1 )
+```
+
+\newpage
+
+Cuyo grafico es: 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+unif_x <- seq(0,1,length=100)
+unif_y <- rep(1,100)
+plot(unif_x,unif_y,xlab="Variable X",ylab="Variable Y",ylim=c(0,1.2),type='l',col='darkgreen',
+     main="Funcion Uniforme [0,1]",lty=1,lwd=2)
+```
+
+El histograma a partir de una muestra simulada es:
+
+
+```{r, echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+set.seed(5);
+n <- 10000
+sim_unif <- runif(n)
+hist(sim_unif,freq = F, main="Histograma de 10000 variables simuladas",
+     xlab="Clases",ylab="Frecuencia",col = "darkgreen")
+lines(density(sim_unif), lwd = 3)
+```
+
+\newpage
+
+# Función normal
+
+\begin {equation*}
+\begin{split}
+f(x)=\frac {1}{\sigma \sqrt{2\pi}} e^{-\frac {(x-\mu)^2}{2}} \\ \text{para} -\infty < x < \infty
+\end{split}
+\end{equation*}
+
+Donde los parametros son
+
+\begin {equation*}
+\begin{split}
+\mu &= Media \\ 
+\sigma &= Desviación
+\end{split}
+\end{equation*}
