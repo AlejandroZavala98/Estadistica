@@ -40,3 +40,152 @@ Cuyo histograma es :
 plot(dbinom(0:10,10,0.1), main="Distribucion binomial",type = "h", lwd = 3,
      xlab="Número de éxitos",ylab="P(X = x)",col = "darkgreen")
 ```
+
+\newpage
+
+# Funcion GEOMÉTRICA
+
+Una variable aleatoria "x" tiene una distribucion geométrica si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = p(1-p)^{x-1} \ \ \textrm{para} \ \ x=1,2,3,... \ \ \textrm{y} \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= \frac{1}{p} \\
+V[x] &= \frac{1-p}{p^{2}}
+\end{split}
+\end{equation*}
+
+Cuyo histograma es : 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+plot(dgeom(x = 1:8, prob = 0.5), main="Distribucion GEOMETRICA",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "hotpink")
+```
+
+\newpage
+
+# Funcion BINOMIAL NEGATIVA 
+
+Una variable aleatoria "x" tiene una distribucion binomial negativa si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \binom{x-1}{r-1} p^{r}(1-p)^{x-r} \ \ \textrm{para} \ \ x=r,r+1,r+2,... \ \ \textrm{y} \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= \frac{r}{p} \\
+V[x] &= \frac{r(1-p)}{p^{2}}
+\end{split}
+\end{equation*}
+
+Denotemos que si hacemos:
+
+\begin {equation*}
+\begin{split}
+p &= 0.5 \\
+r &= 3
+\end{split}
+\end{equation*}
+
+Cuyo histograma es : 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+y_nbin = 3:8
+plot(3:8,dnbinom(y_nbin-3, size=3, prob=0.5), main="Distribucion binomial negativa",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "gold4")
+```
+
+
+\newpage
+
+# Funcion HIPERGEOMÉTRICA 
+
+Una variable aleatoria "x" tiene una distribucion hipergeométrica si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \frac{\binom{r}{x} \binom{N-r}{n-x} }{\binom{N}{n}} \ \ \textrm{para} \ \ x=0,1,2,...,n 
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= \frac{nr}{N} \\
+V[x] &= n \left(\frac{r}{N}\right) \left(\frac{N-r}{N}\right) \left(\frac{N-n}{N-1}\right)
+\end{split}
+\end{equation*}
+
+Sujeto a las restricciones
+
+\begin {equation*}
+\begin{split}
+x  &\leq r \\
+n-x  &\leq N-r
+\end{split}
+\end{equation*}
+
+Denotemos que si hacemos:
+
+\begin {equation*}
+\begin{split}
+r &= 5 \\
+N &= 20 \\
+n &= 10
+\end{split}
+\end{equation*}
+
+Cuyo histograma es : 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+plot(dhyper(0:10, m=5, n=20-5, k=10), main="Distribucion hipergeometrica",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "midnightblue")
+```
+
+# Funcion POISSON 
+
+Una variable aleatoria "x" tiene una distribucion Poisson si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \frac{\lambda^{x}e^{-\lambda}}{x!}   \ \ \textrm{para} \ \ x=0,1,2,...,n \ \ \textrm{para} \ \ \lambda > 0
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= \lambda \\
+V[x] &= \lambda
+\end{split}
+\end{equation*}
+
+
+Denotemos que si hacemos:
+
+\begin {equation*}
+\begin{split}
+\lambda &= 5
+\end{split}
+\end{equation*}
+
+Cuyo histograma es : 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+plot(dpois(0:10, 5), main="Distribucion Poisson",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "olivedrab")
+```
