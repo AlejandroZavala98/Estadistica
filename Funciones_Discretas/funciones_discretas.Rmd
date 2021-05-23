@@ -1,0 +1,42 @@
+---
+title: "Funciones de probabilidad discretas"
+output: pdf_document
+author: "Joel Alejandro Zavala Prieto"
+toc: true
+---
+
+\newpage
+
+# Informacion de contacto
+
+mail: alejandro.zavala1001@gmail.com
+
+Facebook: https://www.facebook.com/AlejandroZavala1001
+
+\newpage
+
+# Funcion BINOMIAL
+
+Una variable aleatoria "x" tiene una distribucion binomial si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \binom{n}{x} p^{x}(1-p)^{n-x} \ \ \textrm{para} \ \ x=0,1,2,...,n \ \ \textrm{y} \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= np \\
+V[x] &= np(1-p)
+\end{split}
+\end{equation*}
+
+Cuyo histograma es : 
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+plot(dbinom(0:10,10,0.1), main="Distribucion binomial",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "darkgreen")
+```

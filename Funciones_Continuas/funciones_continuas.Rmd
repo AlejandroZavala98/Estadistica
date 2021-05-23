@@ -3,7 +3,6 @@ title: "Funciones de probabilidad continuas"
 output: pdf_document
 author: "Joel Alejandro Zavala Prieto"
 toc: true
-font-size: 25px;
 ---
 
 \newpage
@@ -12,22 +11,22 @@ font-size: 25px;
 
 mail: alejandro.zavala1001@gmail.com
 
-Facebook: www.facebook.com/AlejandroZavala
+Facebook: https://www.facebook.com/AlejandroZavala1001
 
 \newpage
 
-# Funcion uniforme
+# Funcion UNIFORME
 
 La función de densidad uniforme esta definida como: 
 
-\begin{equation}
+\begin{equation*}
 f(x) = \left\{
          \begin{array}{ll}
-     f(x)=\frac{1}{b-a}      & \mathrm{si\ } a\leq x \leq b \\
+     \frac{1}{b-a}      & \mathrm{si\ } a\leq x \leq b \\
      0 & \mathrm{otro \ caso\ }
          \end{array}
        \right.
-\end{equation}
+\end{equation*}
 
 Donde su valor esperado y varianza son:
 
@@ -38,16 +37,16 @@ V[x]&=\frac{(b-a)^2}{12}
 \end{split}
 \end{equation*}
 
-Para la función uniforme en el intervalo (0,1)
+Para la función uniforme en el intervalo [0,1]
 
-\begin{equation}
+\begin{equation*}
 f(x) = \left\{
          \begin{array}{ll}
      1     & \mathrm{si\ } 0 \leq x \leq 1 \\
      0 & \mathrm{otro \ caso\ }
          \end{array}
        \right.
-\end{equation}
+\end{equation*}
 
 Donde su valor esperado y su varianza son:
 
@@ -70,12 +69,12 @@ integrate (f, lower = 0, upper = 1 )
 
 \newpage
 
-Cuyo grafico es: 
+Cuya gráfica es: 
 
 ```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
 unif_x <- seq(0,1,length=100)
 unif_y <- rep(1,100)
-plot(unif_x,unif_y,xlab="Variable X",ylab="Variable Y",ylim=c(0,1.2),type='l',col='darkgreen',
+plot(unif_x,unif_y,xlab="Variable X",ylab="Variable Y",type='l',col='darkgreen',
      main="Funcion Uniforme [0,1]",lty=1,lwd=2)
 ```
 
@@ -93,19 +92,274 @@ lines(density(sim_unif), lwd = 3)
 
 \newpage
 
-# Función normal
+# Función NORMAL
 
 \begin {equation*}
 \begin{split}
-f(x)=\frac {1}{\sigma \sqrt{2\pi}} e^{-\frac {(x-\mu)^2}{2}} \\ \text{para} -\infty < x < \infty
+f(x)=\frac {1}{\sigma \sqrt{2\pi}} e^{-\frac {(x-\mu)^2}{2}} \\  -\infty < x < \infty
 \end{split}
 \end{equation*}
 
-Donde los parametros son
+Donde los parametros coinciden con:
 
 \begin {equation*}
 \begin{split}
-\mu &= Media \\ 
-\sigma &= Desviación
+E[x] &= \mu \\ 
+V[x] &= \sigma^2
 \end{split}
 \end{equation*}
+
+Notemos que para la función normal estándar:
+
+\begin {equation*}
+\begin{split}
+\mu &= 0 \\
+\sigma &= 1
+\end{split}
+\end{equation*}
+
+Su función es: 
+
+\begin {equation*}
+\begin{split}
+f(x)=\frac {1}{\sqrt{2\pi}} e^{-\frac {x^{2}}{2}} \\  -\infty < x < \infty
+\end{split}
+\end{equation*}
+
+Se cumple que para la función normal estándar
+\begin {equation*}
+\int_{- \infty}^{\infty} f(x) \cdot dx = \int_{- \infty}^{\infty} \frac {1}{\sqrt{2\pi}} e^{-\frac {x^{2}}{2}} \cdot dx = 1
+\end{equation*}
+```{r, echo=TRUE}
+f_normal <- function(z)
+{
+1/( sqrt (2 * pi ) ) * exp(-z^2/2 )
+}
+integrate (f_normal, lower = -Inf, upper = Inf )
+```
+
+\newpage
+
+Cuya gráfica es:
+
+```{r,echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+x_normal <- seq(-3, 3, length = 100);
+y_normal <- f_normal(x_normal);
+plot(x_normal, y_normal, xlab="Variable X", ylab="Variable Y", type='l', col='violetred',
+     main="Funcion Normal Estandar",lty=1,lwd=2)
+```
+
+El histograma a partir de una muestra simulada es:
+
+```{r, echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+sim_normal <- rnorm(n)
+hist(sim_normal,freq = F, main="Histograma de 10000 variables simuladas",
+     xlab="Clases",ylab="Frecuencia",col = "violetred")
+lines(density(sim_normal), lwd = 3)
+```
+
+
+# Funcion GAMMA
+
+La función de densidad GAMMA esta definida como: 
+
+\begin{equation*}
+f(x) = \left\{
+         \begin{array}{ll}
+     \frac{x^{\alpha - 1} e ^{-\frac{x}{\beta}}}{\beta ^{\alpha} \Gamma(\alpha)} & \mathrm{si\ } 0\leq x < \infty \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{equation*}
+
+Donde
+
+\begin{equation*}
+\Gamma(\alpha) = \int_{0}^{\infty} x^{\alpha - 1} e^{-x} \cdot dx
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=\alpha \beta \\
+V[x]&=\alpha \beta^{2}
+\end{split}
+\end{equation*}
+
+Se cumple ademas
+
+\begin {equation*}
+\int_{- \infty}^{\infty} f(x) \cdot dx = \int_{0}^{\infty} \frac{x^{\alpha - 1} e ^{-\frac{y}{\beta}}}{\beta ^{\alpha} \Gamma(\alpha)} \cdot dx = 1
+\end{equation*}
+
+Las demostraciones de estas funciones se encuentran en el anexo dentro de la carpeta de Bases_teoricas.
+
+## JI CUADRADA
+
+Si
+\begin {equation*}
+\begin{split}
+\alpha&=\frac{v}{2} \\
+\beta&=2
+\end{split}
+\end{equation*}
+
+Es una Chi o Ji cuadrada con v grados de libertad.
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=v \\
+V[x]&=2v
+\end{split}
+\end{equation*}
+
+\newpage
+
+## Un caso interesante          
+
+Notemos que para la siguiente función
+
+\begin{equation*}
+f(x) = \left\{
+         \begin{array}{ll}
+     \frac{1}{\beta} e^{-\frac{x}{\beta}} & \mathrm{si\ } 0\leq x < \infty \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=\beta \\
+V[x]&=\beta ^{2}
+\end{split}
+\end{equation*}
+
+Ahora para la siguiente función
+
+\begin{equation*}
+f(x) = \left\{
+         \begin{array}{ll}
+     \frac{1}{2} e^{-\frac{x}{2}} & \mathrm{si\ } 0\leq x < \infty \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x]&=2 \\
+V[x]&=4
+\end{split}
+\end{equation*}
+
+
+Se cumple que para la función presentada
+\begin {equation*}
+\int_{- \infty}^{\infty} f(x) \cdot dx = \int_{0}^{\infty} \frac{1}{2} e^{-\frac{x}{2}} \cdot dx = 1
+\end{equation*}
+```{r, echo=TRUE}
+f_exp <- function(y)
+{
+  (1/2)*exp(-y/2)
+}
+integrate (f_exp, lower = 0, upper = Inf )
+```
+
+\newpage
+
+Cuya gráfica es
+
+```{r,echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+x_exp <- seq(0, 10, length = 100);
+y_exp <- f_exp(x_exp);
+plot(x_exp, y_exp, xlab="Variable X", ylab="Variable Y", type='l', col='firebrick',
+     main="Funcion exponencial",lty=1,lwd=2)
+```
+
+El histograma a partir de una muestra simulada es
+
+```{r, echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+sim_exp <- rgamma(n, 1 , 2)
+hist(sim_exp,freq = F, main="Histograma de 10000 variables simuladas",
+     xlab="Clases",ylab="Frecuencia",col = "firebrick")
+lines(density(sim_exp), lwd = 3)
+```
+
+
+\newpage
+
+# Función BETA
+
+\begin{equation*}
+\begin{split}
+f(x) = \left\{
+         \begin{array}{ll}
+     \frac{x^{\alpha - 1}(1-x)^{\beta - 1}}{B(\alpha , \beta)} & \mathrm{si\ } 0 \leq x < 1 \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right.
+\end{split}
+\end{equation*}
+
+\begin{equation*}
+\begin{split}
+\alpha,\beta > 0 
+\\
+B(\alpha,\beta) = \int_{0}^{1} x^{\alpha - 1}(1-x)^{\beta - 1} \cdot dx = \frac{\Gamma(\alpha)\Gamma( \beta)}{\Gamma(\alpha + \beta)}
+\end{split}
+\end{equation*}
+
+Donde su valor esperado y varianza son:
+
+\begin {equation*}
+\begin{split}
+E[x] &= \frac{\alpha}{\alpha + \beta} \\
+V[x] &= \frac{\alpha \beta}{(\alpha + \beta)^{2} (\alpha + \beta + 1)}
+\end{split}
+\end{equation*}
+
+Cuya gráfica es
+
+```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
+x_beta <- seq(0,1,length=100)
+plot(x_beta,dbeta(x_beta,5,3),xlab="Variable X",ylab="Variable Y",type='l',col='darkturquoise',
+     main="Funcion Beta",lty=1,lwd=2)
+```
+
+\newpage
+
+El histograma a partir de una muestra simulada es:
+
+```{r, echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
+sim_beta <- rbeta(n, 5 , 3)
+hist(sim_beta,freq = F, main="Histograma de 10000 variables simuladas",
+     xlab="Clases",ylab="Frecuencia",col = "firebrick")
+lines(density(sim_beta), lwd = 3)
+```
+
+\newpage
+
+## Un caso interesante
+
+Notemos que si
+
+\begin {equation*}
+\begin{split}
+\alpha &= 1 \\
+\beta &= 1
+\end{split}
+\end{equation*}
+
+Cae en el caso de ser una distribucion uniforme en el intervalo [0,1]
+```{r, echo=TRUE, fig.height= 4, fig.width = 5.5, fig.align="center"}
+x_beta_uniforme <- seq(0,1,length=100)
+plot(x_beta_uniforme,dbeta(x_beta_uniforme,1,1),xlab="Variable X",ylab="Variable Y",type='l',
+     col='goldenrod3',main="Funcion Beta interesante",lty=1,lwd=2)
+```
