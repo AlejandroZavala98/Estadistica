@@ -1,0 +1,295 @@
+---
+title: "Cálculo de probabilidades continúas"
+output: pdf_document
+author: "Joel Alejandro Zavala Prieto"
+toc: true
+---
+
+\newpage
+
+# Información de contacto
+
+mail: alejandro.zavala1001@gmail.com
+
+Facebook: https://www.facebook.com/AlejandroZavala1001
+
+Git: https://github.com/AlejandroZavala98
+
+\newpage
+
+# Función UNIFORME
+
+La función de densidad uniforme esta definida como: 
+
+Sea
+
+$$
+f(x) =
+\left\{
+\begin{array}{ll}
+\frac{1}{5} & 3 \leq x \leq 8 \\
+0  & \mbox{ otro caso}
+\end{array}
+\right.
+$$
+
+## Gráfico
+
+```{r, echo=FALSE,fig.align="center",fig.width=8,fig.height=5}
+a_ <- 3
+b_ <- 8
+plot(0:10,dunif(0:10,a_,b_),
+     main = "PDF UNIFORME en (3,8)",
+     xlab = "Valor en X",
+     ylab = "f(x)",
+     lty=2, lwd=3)
+```
+
+
+Calculando la función de densidad para la uniforme dada
+
+```{r, echo=TRUE}
+for (i in 0:10){
+  cat("f(",i,") =",dunif(i,a_,b_),"\n")
+}
+```
+\newpage
+
+## Calculando probabilidades
+
+La función de distribución acumulada para la uniforme dada (CDF)
+
+```{r, echo=TRUE, fig.align='center'}
+for (i in 0:10){
+  cat("P(X <",i,") =",punif(i,a_,b_),"\n")
+}
+
+for (i in 0:10){
+  cat("P(X >",i,") =",punif(i,a_,b_,lower.tail = FALSE),"\n")
+}
+
+for (i in 0:10){
+  cat("P(",i,"<","X <",i+1,") =",punif(i+1,a_,b_)-punif(i,a_,b_),"\n")
+}
+
+```
+
+```{r, echo=TRUE, fig.align="center",fig.width=8.5,fig.height=7}
+plot(0:10,punif(0:10,a_,b_),
+     main = "CDF UNIFORME en (3,8)",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3)
+```
+
+\newpage
+
+# Función NORMAL
+
+Recordemos que la función normal esta definida por
+
+\begin{equation*}
+f(x) = \left \{ \begin{matrix}\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{ \left(x - \mu\right)^{2} }{2 \sigma^{2}}} & -\infty < x < \infty \\
+0 & \mbox{ otro caso}
+\end{matrix}\right. 
+\end{equation*}
+
+Ahora si se propone
+
+\begin{equation*}
+f(x) = \left \{ \begin{matrix}\frac{1}{0.5 \sqrt{2 \pi}} e^{-\frac{ \left(x - 5\right)^{2} }{2 \left(0.5\right)^{2} }} & -\infty < x < \infty \\
+0 & \mbox{ otro caso}
+\end{matrix}\right. 
+\end{equation*}
+
+## Gráfico
+
+```{r, echo=FALSE,fig.align="center",fig.width=8,fig.height=5}
+mu_ <- 5
+sd_ <- 0.5
+plot(seq(from = 0, to = 10, by=0.2),dnorm(seq(from = 0, to = 10, by=0.2) ,mu_,sd_),
+     main = "PDF NORMAL con media 5 y desviacion estandar de 0.5",
+     xlab = "Valor en X",
+     ylab = "f(x)",
+     lty=2, lwd=3)
+```
+
+Calculando la función de densidad para la normal dada
+
+```{r, echo=TRUE}
+test_norm <- c(3.5,4,4.6,4.9)
+for (i in test_norm){
+  cat("f(",i,") =",dnorm(i,mu_,sd_),"\n")
+}
+```
+
+\newpage
+
+## Calculando probabilidades
+
+La función de distribución acumulada para la uniforme dada (CDF)
+
+```{r, echo=TRUE, fig.align='center'}
+for (i in 2:8){
+  cat("P(X <",i,") =",pnorm(i,mu_,sd_),"\n")
+}
+
+for (i in 0:5){
+  cat("P(X >",i,") =",pnorm(i,mu_,sd_,lower.tail = FALSE),"\n")
+}
+
+for (i in 3:7){
+  cat("P(",i,"<","X <",i+1,") =",pnorm(i+1,mu_,sd_)-pnorm(i,mu_,sd_),"\n")
+}
+
+```
+
+\newpage
+
+```{r, echo=TRUE, fig.align="center",fig.width=8.5,fig.height=7}
+plot(seq(from = 0, to = 10, by=0.2),pnorm(seq(from = 0, to = 10, by=0.2),mu_,sd_),
+     main = "CDF NORMAL",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3)
+```
+
+\newpage
+
+# Función GAMMA
+
+Recordando que para la función GAMMA
+
+\begin{equation*}
+f(x) = \left\{
+         \begin{array}{ll}
+     \frac{x^{\alpha - 1} e ^{-\frac{x}{\beta}}}{\beta ^{\alpha} \Gamma(\alpha)} & \mathrm{si\ } 0\leq x < \infty \\
+     0 & \mbox{otro caso}
+         \end{array}
+       \right.
+\end{equation*}
+
+Notese que si $\alpha$ es un entero
+
+\begin{equation*}
+\Gamma(n) = (n-1)!
+\end{equation*}
+
+Veamoslo por linea de código
+
+```{r, echo=TRUE, fig.align='center'}
+for (i in 1:6){
+  cat("Gamma(",i,")=",gamma(i),"\n")
+}
+```
+Ahora
+
+\begin{equation*}
+\begin{split}
+\beta &= 1 \\
+\alpha &= 2 \\
+f(x) &= \left\{
+         \begin{array}{ll}
+     x e ^{-x} & \mathrm{si\ } 0\leq x < \infty \\
+     0 & \mbox{otro caso}
+         \end{array}
+       \right.
+       \end{split}
+\end{equation*}
+
+Calculando la función de densidad para la GAMMA dada
+
+```{r, echo=TRUE}
+alpha_ = 2
+beta_ = 1
+for (i in 0:10){
+  cat("f(",i,") =",dgamma(i,alpha_,beta_),"\n")
+}
+```
+
+
+\newpage
+
+## Gráfico
+
+```{r, echo=FALSE, fig.align='center',fig.width=8.5,fig.height=11}
+par(mfrow=c(2,1))
+plot(seq(from = 0, to = 10, by=0.2),
+     dgamma(seq(from = 0, to = 10, by=0.2),alpha_,beta_),
+     main = "PDF GAMMA(2,1)",xlab = "Valor en X",ylab = "f(x)",lty=2, lwd=3)
+plot(seq(from = 0, to = 10, by=0.2),
+     pgamma(seq(from = 0, to = 10, by=0.2),alpha_,beta_),
+     main = "CDF GAMMA(2,1)",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3)
+```
+
+\newpage
+
+## Calculando probabilidades
+
+```{r, echo=TRUE, fig.align='center'}
+
+for (i in 0:8){
+  cat("P(X <",i,") =",pgamma(i,alpha_,beta_),"\n")
+}
+
+for (i in 4:8){
+  cat("P(X >",i,") =",pgamma(i,alpha_,beta_,lower.tail = FALSE),"\n")
+}
+
+for (i in 3:10){
+  cat("P(",i,"<","X <",i+1,") =",pgamma(i+1,alpha_,beta_)-pgamma(i,alpha_,beta_),"\n")
+}
+```
+
+\newpage
+
+# Función BETA
+
+Recordando que para la función BETA
+
+\begin{equation*}
+\begin{split}
+f(x) &= \left\{
+         \begin{array}{ll}
+     \frac{x^{\alpha - 1}(1-x)^{\beta - 1}}{B(\alpha , \beta)} & \mathrm{si\ } 0 \leq x < 1 \\
+     0 & \mathrm{otro \ caso\ }
+         \end{array}
+       \right. \\
+\alpha,\beta &> 0 \\
+B(\alpha,\beta) &= \int_{0}^{1} x^{\alpha - 1}(1-x)^{\beta - 1} \cdot dx = \frac{\Gamma(\alpha)\Gamma( \beta)}{\Gamma(\alpha + \beta)}
+\end{split}
+\end{equation*}
+
+Calculando la función de densidad para la beta dada
+
+```{r, echo=TRUE}
+alpha_ = 5
+beta_ = 3
+for (i in seq(0,1,length=10)){
+  cat("f(",i,") =",dbeta(i,alpha_,beta_),"\n")
+}
+```
+\newpage
+
+## Gráfico
+
+```{r, echo=FALSE, fig.align='center',fig.width=8.5,fig.height=11}
+par(mfrow=c(2,1))
+plot(seq(0,1,length=100),
+     dbeta(seq(0,1,length=100),alpha_,beta_),
+     main = "PDF BETA(5,3)",xlab = "Valor en X",ylab = "f(x)",lty=2, lwd=3)
+plot(seq(0,1,length=100),
+     pbeta(seq(0,1,length=100),alpha_,beta_),
+     main = "CDF BETA(5,3)",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3)
+```
+
+## Calculando probabilidades
+
+```{r, echo=TRUE, fig.align='center'}
+
+for (i in seq(0,1,by=0.2)){
+  cat("P(X <",i,") =",pbeta(i,alpha_,beta_),"\n")
+}
+
+for (i in seq(0.4,0.8,by=0.1)){
+  cat("P(X >",i,") =",pbeta(i,alpha_,beta_,lower.tail = FALSE),"\n")
+}
+
+for (i in seq(0.4,0.8,by=0.1)){
+  cat("P(",i,"<","X <",i+1,") =",pbeta(i+0.1,alpha_,beta_)-pbeta(i,alpha_,beta_),"\n")
+}
+```
