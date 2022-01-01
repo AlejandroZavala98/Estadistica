@@ -1,0 +1,187 @@
+---
+title: "Cálculo de probabilidades discretas"
+output: pdf_document
+author: "Joel Alejandro Zavala Prieto"
+toc: true
+---
+
+\newpage
+
+# Información de contacto
+
+mail: alejandro.zavala1001@gmail.com
+
+Facebook: https://www.facebook.com/AlejandroZavala1001
+
+Git: https://github.com/AlejandroZavala98
+
+\newpage
+
+# Función BINOMIAL
+
+La función de densidad discreta binomial esta definida como: 
+
+Sea
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \binom{n}{x} p^{x}(1-p)^{n-x} \ \ \mbox{para} \ \ x=0,1,2,...,n \ \ \textrm{y} \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+Problema tomado de *Mendenhall*
+
+La probabilidad de que un paciente se recupere de una enfermedad estomacal es .8. Suponga que se sabe que 20 personas han contraído la enfermedad. ¿Cuál es la probabilidad de que:
+
+1. exactamente 14 se recuperen?
+2. al menos 10 se recuperen?
+3. al menos 14 pero no más de 18 se recuperen?
+4. a lo mucho 16 se recuperen?
+
+
+## Gráfico
+
+```{r, echo=FALSE,fig.align="center",fig.width=8,fig.height=5}
+exito_p <- 0.80;
+fracaso_q <- 1-exito_p;
+n_total <- 20
+
+plot(dbinom(0:n_total,n_total,exito_p), main="Distribucion binomial ",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "darkgreen")
+
+plot(0:n_total,pbinom(0:n_total,n_total,exito_p),
+       main = "CDF Binomial",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3, col="darkblue")
+```
+
+
+Probabilidad de que 14 se recuperen
+
+```{r, echo=TRUE}
+dbinom(14,n_total,exito_p)
+```
+
+Al menos 10 se recuperen?
+
+```{r, echo=TRUE}
+1 - pbinom(9,n_total,exito_p)
+```
+Al menos 14 pero no más de 18 se recuperen?
+
+```{r, echo=TRUE}
+pbinom(18,n_total,exito_p) - pbinom(13,n_total,exito_p)
+```
+A lo mucho 16 se recuperen
+```{r, echo=TRUE}
+pbinom(16,n_total,exito_p)
+```
+
+\newpage
+
+# Funcion GEOMÉTRICA
+Recordemos que para la distribución geométrica
+
+\begin {equation*}
+\begin{split}
+P(X=x) = p(1-p)^{x-1} \mbox{ para} \ \ x=1,2,3,..., \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+Un contador público certificado (CPA, por sus siglas en inglés) ha encontrado que nueve de entre diez
+compañías auditadas contienen errores importantes. Si el CPA hace auditoría a una serie de cuentas de
+empresas, ¿cuál es la probabilidad de que la primera cuenta que contenga errores importantes
+
+1. sea la tercera en ser auditada?
+2. sea la tercera cuenta auditada la que le sigue?
+
+## Gráfico
+
+```{r, echo=FALSE,fig.align="center",fig.width=8,fig.height=5}
+exito_p <- 9/10;
+fracaso_q <- 1-exito_p;
+n_total <- 20
+
+plot(dgeom(0:n_total,exito_p), main="Distribucion GEOMETRICA ",type = "h", lwd = 3,
+     xlab="Número de éxitos",ylab="P(X = x)",col = "darkgreen")
+
+plot(0:5,pgeom(0:5,exito_p),
+       main = "CDF GEOMETRICA",xlab = "Valor en X",ylab = "F(x)",lty=2, lwd=3, col="darkblue")
+```
+Sea la tercera en ser auditada?
+
+```{r, echo=TRUE}
+dgeom(3-1,exito_p)
+```
+sea la tercera cuenta auditada la que le sigue?
+
+```{r, echo=TRUE}
+pgeom(3-2,exito_p,lower.tail = FALSE)
+```
+
+\newpage
+
+# Función BINOMIAL NEGATIVA 
+
+Recordando "x" tiene una distribucion binomial negativa si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \binom{x-1}{r-1} p^{r}(1-p)^{x-r} \ \ \mbox{para} \ \ x=r,r+1,r+2,..., \ \ 0 \leq p \leq 1
+\end{split}
+\end{equation*}
+
+
+Diez por ciento de los motores fabricados en una línea de ensamble son defectuosos. Si los motores se seleccionan al azar uno a la vez y se prueban, ¿cuál es la probabilidad de que el primer motor no defectuoso sea hallado en el segundo intento?
+
+```{r, echo=FALSE,fig.align="center",fig.width=8,fig.height=5}
+p_exito <- dgeom(2-1,0.9);
+p_exito
+```
+
+¿Cuál es la probabilidad de que el tercer motor no defectuoso sea hallado
+
+1. en el quinto intento?
+
+```{r, echo=TRUE}
+dnbinom(5-3, 3,0.09)
+
+```
+
+2. en el quinto intento o antes?
+
+```{r, echo=TRUE}
+dnbinom(5-3, 3,0.09) + dnbinom((5-1)-3, 3,0.09) + dnbinom((5-2)-3, 3,0.09)
+
+```
+
+# Función POISSON 
+
+Recordemos que para que una variable aleatoria "x" tiene una distribución Poisson si
+
+\begin {equation*}
+\begin{split}
+P(X=x) = \frac{\lambda^{x}e^{-\lambda}}{x!}   \ \ \mbox{para} \ \ x=0,1,2,...,n \ \ \mbox{para} \ \ \lambda > 0
+\end{split}
+\end{equation*}
+
+Llegan clientes a un mostrador de salida en una tienda de departamentos de acuerdo con una distribución de Poisson, a un promedio de siete por hora. Durante una hora determinada, ¿cuáles son las probabilidades de que
+
+1. no lleguen más de tres clientes?
+
+```{r, echo=TRUE}
+lambda_p <- 7
+ppois(3,lambda_p)
+
+```
+
+2. lleguen al menos dos clientes?
+
+```{r, echo=TRUE}
+1 - ppois(1,lambda_p)
+
+```
+c lleguen exactamente cinco clientes?
+
+```{r, echo=TRUE}
+dpois(5,lambda_p)
+
+```
