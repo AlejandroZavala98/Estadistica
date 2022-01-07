@@ -7,15 +7,17 @@ toc: true
 
 \newpage
 
-# Informacion de contacto
+# Información de contacto
 
 mail: alejandro.zavala1001@gmail.com
 
 Facebook: https://www.facebook.com/AlejandroZavala1001
 
+Git: https://github.com/AlejandroZavala98
+
 \newpage
 
-# Funcion BINOMIAL
+# Función BINOMIAL
 
 Una variable aleatoria "x" tiene una distribucion binomial si
 
@@ -155,7 +157,7 @@ plot(dhyper(0:10, m=5, n=20-5, k=10), main="Distribucion hipergeometrica",type =
      xlab="Número de éxitos",ylab="P(X = x)",col = "midnightblue")
 ```
 
-# Funcion POISSON 
+# Función POISSON 
 
 Una variable aleatoria "x" tiene una distribucion Poisson si
 

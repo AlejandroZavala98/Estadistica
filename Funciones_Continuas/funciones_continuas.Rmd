@@ -7,15 +7,17 @@ toc: true
 
 \newpage
 
-# Informacion de contacto
+# Información de contacto
 
 mail: alejandro.zavala1001@gmail.com
 
 Facebook: https://www.facebook.com/AlejandroZavala1001
 
+Git: https://github.com/AlejandroZavala98
+
 \newpage
 
-# Funcion UNIFORME
+# Función UNIFORME
 
 La función de densidad uniforme esta definida como: 
 
@@ -80,7 +82,6 @@ plot(unif_x,unif_y,xlab="Variable X",ylab="Variable Y",type='l',col='darkgreen',
 
 El histograma a partir de una muestra simulada es:
 
-
 ```{r, echo=FALSE, fig.height = 3.9, fig.width = 5.5, fig.align="center"}
 set.seed(5);
 n <- 10000
@@ -100,7 +101,7 @@ f(x)=\frac {1}{\sigma \sqrt{2\pi}} e^{-\frac {(x-\mu)^2}{2}} \\  -\infty < x < \
 \end{split}
 \end{equation*}
 
-Donde los parametros coinciden con:
+Donde los parámetros coinciden con:
 
 \begin {equation*}
 \begin{split}
@@ -158,8 +159,7 @@ hist(sim_normal,freq = F, main="Histograma de 10000 variables simuladas",
 lines(density(sim_normal), lwd = 3)
 ```
 
-
-# Funcion GAMMA
+# Función GAMMA
 
 La función de densidad GAMMA esta definida como: 
 
@@ -299,20 +299,14 @@ lines(density(sim_exp), lwd = 3)
 
 \begin{equation*}
 \begin{split}
-f(x) = \left\{
+f(x) &= \left\{
          \begin{array}{ll}
      \frac{x^{\alpha - 1}(1-x)^{\beta - 1}}{B(\alpha , \beta)} & \mathrm{si\ } 0 \leq x < 1 \\
      0 & \mathrm{otro \ caso\ }
          \end{array}
-       \right.
-\end{split}
-\end{equation*}
-
-\begin{equation*}
-\begin{split}
-\alpha,\beta > 0 
-\\
-B(\alpha,\beta) = \int_{0}^{1} x^{\alpha - 1}(1-x)^{\beta - 1} \cdot dx = \frac{\Gamma(\alpha)\Gamma( \beta)}{\Gamma(\alpha + \beta)}
+       \right. \\
+\alpha,\beta &> 0 \\
+B(\alpha,\beta) &= \int_{0}^{1} x^{\alpha - 1}(1-x)^{\beta - 1} \cdot dx = \frac{\Gamma(\alpha)\Gamma( \beta)}{\Gamma(\alpha + \beta)}
 \end{split}
 \end{equation*}
 
@@ -325,7 +319,7 @@ V[x] &= \frac{\alpha \beta}{(\alpha + \beta)^{2} (\alpha + \beta + 1)}
 \end{split}
 \end{equation*}
 
-Cuya gráfica es
+Cuya gráfica es para una $BETA(\alpha =5,\beta=3)$
 
 ```{r, echo=FALSE, fig.height= 3.9, fig.width = 5.5, fig.align="center"}
 x_beta <- seq(0,1,length=100)
@@ -357,7 +351,8 @@ Notemos que si
 \end{split}
 \end{equation*}
 
-Cae en el caso de ser una distribucion uniforme en el intervalo [0,1]
+Cae en el caso de ser una distribución uniforme en el intervalo [0,1]
+
 ```{r, echo=TRUE, fig.height= 4, fig.width = 5.5, fig.align="center"}
 x_beta_uniforme <- seq(0,1,length=100)
 plot(x_beta_uniforme,dbeta(x_beta_uniforme,1,1),xlab="Variable X",ylab="Variable Y",type='l',
